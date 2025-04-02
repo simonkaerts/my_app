@@ -1,6 +1,6 @@
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js')  // Ensure it's root-relative
+    navigator.serviceWorker.register('/my_app/service-worker.js')  // Ensure it's root-relative
       .then((registration) => {
         console.log('Service Worker registered with scope:', registration.scope);
       })
