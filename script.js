@@ -104,3 +104,30 @@ function startTimer() {
 
     startRound(currentRound);
 }
+
+let deferredPrompt;
+
+window.addEventListener('beforeinstallprompt', (event) => {
+    // Prevent the default prompt from being shown
+    event.preventDefault();
+    // Save the event for triggering later
+    deferredPrompt = event;
+    // Optionally, show a custom install button
+    const installButton = document.getElementById("installButton");
+    if (installButton) {
+        installButton.style.display = 'block'; // Show install button
+        installButton.addEventListener('click', () => {
+            // Show the prompt to the user
+            deferredPrompt.prompt();
+            // Wait for the user to respond to the prompt
+            deferredPrompt.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                    console.log('User accepted the A2HS prompt');
+                } else {
+                    console.log('User dismissed the A2HS prompt');
+                }
+                deferredPrompt = null;
+            });
+        });
+    }
+});
