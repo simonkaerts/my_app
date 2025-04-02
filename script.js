@@ -109,26 +109,35 @@ function startTimer() {
 let deferredPrompt;
 
 window.addEventListener('beforeinstallprompt', (event) => {
-    // Prevent the default prompt from being shown
-    event.preventDefault();
-    // Save the event for triggering later
-    deferredPrompt = event;
+    event.preventDefault(); // Prevents the default mini-infobar from appearing
+    deferredPrompt = event; // Store the event for later use
+
     // Optionally, show a custom install button
-    const installButton = document.getElementById("installButton");
-    if (installButton) {
-        installButton.style.display = 'block'; // Show install button
-        installButton.addEventListener('click', () => {
-            // Show the prompt to the user
-            deferredPrompt.prompt();
-            // Wait for the user to respond to the prompt
+    const installButton = document.createElement('button');
+    installButton.textContent = 'Install App';
+    installButton.style.position = 'fixed';
+    installButton.style.bottom = '20px';
+    installButton.style.right = '20px';
+    installButton.style.padding = '10px';
+    installButton.style.background = '#b27cf0';
+    installButton.style.color = 'white';
+    installButton.style.border = 'none';
+    installButton.style.cursor = 'pointer';
+    document.body.appendChild(installButton);
+
+    installButton.addEventListener('click', () => {
+        if (deferredPrompt) {
+            deferredPrompt.prompt(); // Show the prompt
             deferredPrompt.userChoice.then((choiceResult) => {
                 if (choiceResult.outcome === 'accepted') {
-                    console.log('User accepted the A2HS prompt');
+                    console.log('User accepted the install prompt');
                 } else {
-                    console.log('User dismissed the A2HS prompt');
+                    console.log('User dismissed the install prompt');
                 }
-                deferredPrompt = null;
+                deferredPrompt = null; // Clear the event after use
             });
-        });
-    }
+        }
+        installButton.remove(); // Remove the button after interaction
+    });
 });
+
