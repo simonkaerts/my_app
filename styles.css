@@ -1,0 +1,189 @@
+/* General Page Styling */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: white;
+    display: flex;
+    overflow-x: hidden;
+    /* Prevents horizontal scrolling */
+}
+
+/* Sidebar Menu */
+.menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 50px;
+    /* Collapsed width */
+    height: 100vh;
+    background-color: #1a1a1a;
+    transition: width 0.3s ease;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    z-index: 1000;
+    /* Ensures menu stays on top */
+}
+
+/* Expand menu */
+.menu.open {
+    width: 250px;
+}
+
+/* Hide menu items when collapsed */
+.menu ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease-in-out;
+}
+
+/* Show menu items when expanded */
+.menu.open ul {
+    opacity: 1;
+    visibility: visible;
+    padding-top: 20px;
+}
+
+/* Navigation Items */
+.menu ul li {
+    padding: 15px 20px;
+    text-align: left;
+}
+
+.menu ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    display: block;
+    transition: 0.3s;
+}
+
+.menu ul li a:hover {
+    background-color: #b27cf0;
+    color: #121212;
+}
+
+/* Hamburger Menu Button */
+.menu-button {
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    background: #b27cf0;
+    color: white;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    transition: width 0.3s ease;
+    position: relative;
+    /* Ensures it stays inside menu */
+}
+
+.menu.open .menu-button {
+    width: 100%;
+}
+
+/* Main Content */
+.content {
+    flex-grow: 1;
+    padding: 20px;
+    width: 100vw;
+    transition: margin-left 0.3s ease;
+    position: relative;
+    z-index: 0;
+    /* Ensures content stays behind menu */
+}
+
+/* Apply left margin when the menu is collapsed */
+.menu:not(.open)+.content {
+    margin-left: 50px;
+    /* Adjust this value to your desired offset */
+}
+
+/* Prevent content from shifting when menu is open */
+.menu.open+.content {
+    margin-left: 0;
+}
+
+/* Page Sections */
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+/* Timer App */
+.timer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    position: relative;
+    width: 200px;
+    height: 200px;
+    text-align: center;
+}
+
+svg {
+    position: relative;
+    z-index: 1;
+}
+
+#display {
+    position: absolute;
+    top: 50%;
+    left: 150px;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    z-index: 2;
+}
+
+.controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    max-width: 300px;
+}
+
+.controls label,
+.controls input,
+.controls button {
+    width: 100%;
+    max-width: 200px;
+    text-align: center;
+}
+
+.controls input {
+    padding: 5px;
+    font-size: 16px;
+}
+
+.controls button {
+    padding: 10px;
+    background-color: #b27cf0;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 20px;
+    font-size: 16px;
+}
+
+#progressCircleRound,
+#progressCircleTotal {
+    stroke: rgb(97, 0, 139);
+    stroke-linecap: round;
+}
+
+#backgroundCircleRound,
+#backgroundCircleTotal {
+    stroke: rgba(0, 0, 0, 0.3);
+}
